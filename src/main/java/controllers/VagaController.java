@@ -14,22 +14,29 @@ public class VagaController {
     private VagaRepository vagaRepository = new VagaRepository(new ArrayList<>());
 
     private VagaService vagaService = new VagaService(vagaRepository);
-
+    private boolean showFilter = false;
     public VagaController() {
+        vagaService.registerVagas(50);
         this.view = new ViewVagas();
-        carregaTabela(false);
+        carregaTabela(showFilter);
         setupListener();
+
     }
 
     public void setupListener() {
         this.view.getBtnGetVagas().addActionListener((e -> {
-                this.view.getBtnGetVagas().setText("Mostrar todas");
-                carregaTabela(true);
+                if (showFilter){
+                    this.view.getBtnGetVagas().setText("Mostrar vagas disponiveis");
+                }else{
+                    this.view.getBtnGetVagas().setText("Mostrar todas");
+                }
+                showFilter = !showFilter;
+                carregaTabela(showFilter);
         }));
     }
 
     private void carregaTabela(Boolean onlyDisponivel) {
-        vagaService.registerVagas(50);
+
         Object colunas[] = {"Vaga", "Disponivel"};
         DefaultTableModel tm = new DefaultTableModel(colunas, 0);
         Iterator<Vaga> it;

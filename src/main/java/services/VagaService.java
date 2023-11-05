@@ -14,6 +14,7 @@ public class VagaService {
     public void registerVagas(int numberOfVagas) {
         int initialLetter = 65;
         int maxParkingSpaces = 50;
+        boolean teste = false;
         for (int i = 0; i <= numberOfVagas; i++) {
 
             if (i > maxParkingSpaces) {
@@ -22,12 +23,17 @@ public class VagaService {
             if (initialLetter > 89) {
                 break;
             }
+            if(i%2 ==0){
+                teste = true;
+            }else{
+                teste = false;
+            }
             if (i > maxParkingSpaces) {
                 numberOfVagas = numberOfVagas - i;
                 i = 0;
             }
 
-            vagaRepository.addElement(new Vaga((char) initialLetter, i));
+            vagaRepository.addElement(new Vaga((char) initialLetter, i,teste));
 
         }
     }
