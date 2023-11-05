@@ -25,12 +25,12 @@ public class VagaController {
 
     public void setupListener() {
         this.view.getBtnGetVagas().addActionListener((e -> {
+            showFilter = !showFilter;
                 if (showFilter){
-                    this.view.getBtnGetVagas().setText("Mostrar vagas disponiveis");
-                }else{
                     this.view.getBtnGetVagas().setText("Mostrar todas");
+                }else{
+                    this.view.getBtnGetVagas().setText("Mostrar vagas disponiveis");
                 }
-                showFilter = !showFilter;
                 carregaTabela(showFilter);
         }));
     }
