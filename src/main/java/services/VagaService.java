@@ -15,7 +15,7 @@ public class VagaService {
         int initialLetter = 65;
         int maxParkingSpaces = 50;
 
-        for (int i = 0; i <= numberOfVagas; i++) {
+        for (int i = 0; i < numberOfVagas; i++) {
 
             if (i > maxParkingSpaces) {
                 initialLetter = initialLetter + 1;

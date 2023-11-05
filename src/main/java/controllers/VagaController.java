@@ -10,11 +10,44 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class VagaController {
+    public void setView(ViewVagas view) {
+        this.view = view;
+    }
+
+    public void setVagaRepository(VagaRepository vagaRepository) {
+        this.vagaRepository = vagaRepository;
+    }
+
+    public void setVagaService(VagaService vagaService) {
+        this.vagaService = vagaService;
+    }
+
+    public void setShowFilter(boolean showFilter) {
+        this.showFilter = showFilter;
+    }
+
+    public ViewVagas getView() {
+        return view;
+    }
+
+    public VagaRepository getVagaRepository() {
+        return vagaRepository;
+    }
+
+    public VagaService getVagaService() {
+        return vagaService;
+    }
+
+    public boolean isShowFilter() {
+        return showFilter;
+    }
+
     private ViewVagas view;
     private VagaRepository vagaRepository = new VagaRepository(new ArrayList<>());
 
     private VagaService vagaService = new VagaService(vagaRepository);
     private boolean showFilter = false;
+
     public VagaController() {
         vagaService.registerVagas(50);
         this.view = new ViewVagas();
@@ -26,12 +59,12 @@ public class VagaController {
     public void setupListener() {
         this.view.getBtnGetVagas().addActionListener((e -> {
             showFilter = !showFilter;
-                if (showFilter){
-                    this.view.getBtnGetVagas().setText("Mostrar todas");
-                }else{
-                    this.view.getBtnGetVagas().setText("Mostrar vagas disponiveis");
-                }
-                carregaTabela(showFilter);
+            if (showFilter) {
+                this.view.getBtnGetVagas().setText("Mostrar todas");
+            } else {
+                this.view.getBtnGetVagas().setText("Mostrar vagas disponiveis");
+            }
+            carregaTabela(showFilter);
         }));
     }
 
