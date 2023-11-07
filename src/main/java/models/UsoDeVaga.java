@@ -1,5 +1,6 @@
 package models;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 //import models.Vaga;
@@ -13,23 +14,32 @@ public class UsoDeVaga {
     LocalDateTime saida;
     double valorpago;
 
-    public UsoDeVaga(double fracao_uso, double valor_fracao, double valor_maximo, double valorpago) {
+
+
+    public UsoDeVaga(double fracao_uso, double valor_fracao, double valor_maximo, Vaga vaga, LocalDateTime entrada,
+                     LocalDateTime saida, double valorpago) {
         this.fracao_uso = fracao_uso;
         this.valor_fracao = valor_fracao;
         this.valor_maximo = valor_maximo;
+        this.vaga = vaga;
+        this.entrada = entrada;
+        this.saida = saida;
         this.valorpago = valorpago;
     }
 
-    public UsoDeVaga(Vaga vaga) {
-        this.vaga = vaga;
-    }
-
     public double sair() {
-        throw new UnsupportedOperationException("Esta funcionalidade ainda não foi implementada.");
 
+        return valorpago;
     }
-    public double valorPago(){
-        return this.valorpago;
+
+    public double valorPago() {
+        Duration diferenca = Duration.between(saida, entrada);
+        valorpago = (double)diferenca.toMinutes();
+        valorpago = ((int)valorpago/15)*valor_fracao;
+        if (valorpago > valor_maximo ) {
+            valorpago = valor_maximo;
+        }
+        return valorpago;
     }
 
     public double getFracao_uso() {
@@ -142,5 +152,5 @@ public class UsoDeVaga {
             return false;
         return true;
     }
-    
+
 }
